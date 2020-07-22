@@ -4,10 +4,17 @@ namespace YnabAPI.Models
 {
     public class Transaction
     {
-        public DateTime TransactionDate { get; set; }
+        public Transaction(DateTime transactionDate, decimal amount, string category)
+        {
+            this.TransactionDate = transactionDate;
+            this.Amount = amount;
+            this.Category = category;
+        }
 
-        public decimal Amount { get; set; }
+        public DateTime TransactionDate { get; }
 
-        public string Category { get; set; }
+        public decimal Amount { get; }
+
+        public string Category { get; }
     }
 }
