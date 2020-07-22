@@ -34,6 +34,11 @@ namespace YnabAPI.Services
         {
             string resourceUrl = string.Format(this.configuration["YnabService:GetTransactionsResource"], budgetId);
 
+            if (startDate.HasValue)
+            {
+                resourceUrl += $"?since_date={startDate.Value:yyyy-MM-dd}";
+            }
+
             var response = await this.httpClient.GetAsync(resourceUrl);
 
             response.EnsureSuccessStatusCode();

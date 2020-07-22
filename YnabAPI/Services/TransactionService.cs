@@ -1,14 +1,52 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
+using YnabAPI.ExternalModels;
 using YnabAPI.Models;
 
 namespace YnabAPI.Services
 {
-    public class TransactionService
+    public interface ITransactionService
     {
-        public IEnumerable<Transaction> GetTransactions(string budgetId)
+        Task<IEnumerable<Transaction>> GetTransactions(string budgetId, DateTime? startDate);
+    }
+
+    public class TransactionService : ITransactionService
+    {
+        private readonly IYnabService ynabService;
+
+        public TransactionService(IYnabService ynabService)
         {
-            return new List<Transaction>();
+            this.ynabService = ynabService;
+        }
+
+        public async Task<IEnumerable<Transaction>> GetTransactions(string budgetId, DateTime? startDate)
+        {
+            IEnumerable<YnabTransaction> ynabTransactions = await this.ynabService.GetTransactions(budgetId, startDate);
+
+            IEnumerable<Transaction> transactions = this.GetSingleTransactions(ynabTransactions)
+                .Concat(this.GetSplitTransactions(ynabTransactions));
+
+            return transactions;
+        }
+
+        private IEnumerable<Transaction> GetSingleTransactions(IEnumerable<YnabTransaction> ynabTransactions) 
+            => ynabTransactions.Where(x => x.Approved && !x.SubTransactions.Any()).Select(x => new Transaction(x.Date, x.Amount / 1000, x.CategoryName));
+
+        private IEnumerable<Transaction> GetSplitTransactions(IEnumerable<YnabTransaction> ynabTransactions)
+        {
+            var transactions = new List<Transaction>();
+
+            var splitTransactions = ynabTransactions.Where(x => x.Approved && x.SubTransactions.Any());
+
+            foreach (var splitTransaction in splitTransactions)
+            {
+                transactions.AddRange(splitTransaction.SubTransactions.Select(x => new Transaction(x.Date, x.Amount, x.CategoryName)));
+            }
+
+            return transactions;
         }
     }
 }
