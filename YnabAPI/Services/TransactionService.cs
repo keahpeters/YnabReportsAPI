@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,7 +11,7 @@ namespace YnabAPI.Services
 {
     public interface ITransactionService
     {
-        Task<IEnumerable<Transaction>> GetTransactions(string budgetId, DateTime? startDate);
+        Task<IEnumerable<Transaction>> GetTransactions(string budgetId, string? startDate);
     }
 
     public class TransactionService : ITransactionService
@@ -22,9 +23,15 @@ namespace YnabAPI.Services
             this.ynabService = ynabService;
         }
 
-        public async Task<IEnumerable<Transaction>> GetTransactions(string budgetId, DateTime? startDate)
+        public async Task<IEnumerable<Transaction>> GetTransactions(string budgetId, string? startDate)
         {
-            IEnumerable<YnabTransaction> ynabTransactions = await this.ynabService.GetTransactions(budgetId, startDate);
+            if (startDate is { } && !DateTime.TryParseExact(startDate, "yyyy-MM-dd", CultureInfo.CurrentCulture, DateTimeStyles.None, out _))
+            {
+                throw new ArgumentException("Invalid startDate format", nameof(startDate));
+            }
+
+            YnabResponse? result = await this.ynabService.GetTransactions(budgetId, startDate);
+            var ynabTransactions = result.Data.Transactions;
 
             IEnumerable<Transaction> transactions = this.GetSingleTransactions(ynabTransactions)
                 .Concat(this.GetSplitTransactions(ynabTransactions));

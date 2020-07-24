@@ -13,7 +13,7 @@ namespace YnabAPI.Services
 {
     public interface IYnabService
     {
-        Task<IEnumerable<YnabTransaction>> GetTransactions(string budgetId, DateTime? startDate);
+        Task<YnabResponse> GetTransactions(string budgetId, string? startDate);
     }
 
     public class YnabService : IYnabService
@@ -27,16 +27,16 @@ namespace YnabAPI.Services
             this.configuration = configuration;
 
             httpClient.BaseAddress = new Uri(configuration["YnabService:BaseUrl"]);
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue($"Bearer {this.configuration["YnabService:AccessToken"]}");
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.configuration["YnabService:AccessToken"]);
         }
 
-        public async Task<IEnumerable<YnabTransaction>> GetTransactions(string budgetId, DateTime? startDate)
+        public async Task<YnabResponse> GetTransactions(string budgetId, string? startDate)
         {
             string resourceUrl = string.Format(this.configuration["YnabService:GetTransactionsResource"], budgetId);
 
-            if (startDate.HasValue)
+            if (startDate is { })
             {
-                resourceUrl += $"?since_date={startDate.Value:yyyy-MM-dd}";
+                resourceUrl += $"?since_date={startDate}";
             }
 
             var response = await this.httpClient.GetAsync(resourceUrl);
@@ -44,7 +44,7 @@ namespace YnabAPI.Services
             response.EnsureSuccessStatusCode();
 
             using var responseStream = await response.Content.ReadAsStreamAsync();
-            return await JsonSerializer.DeserializeAsync<IEnumerable<YnabTransaction>>(responseStream);
+            return await JsonSerializer.DeserializeAsync<YnabResponse>(responseStream);
         }
     }
 }
