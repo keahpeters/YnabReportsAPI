@@ -44,7 +44,7 @@ namespace YnabAPI.Services
             response.EnsureSuccessStatusCode();
 
             using var responseStream = await response.Content.ReadAsStreamAsync();
-            return await JsonSerializer.DeserializeAsync<YnabResponse>(responseStream);
+            return await JsonSerializer.DeserializeAsync<YnabResponse>(responseStream, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
         }
     }
 }
