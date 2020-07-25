@@ -27,7 +27,7 @@ namespace YnabAPI
             services.AddTransient<ITransactionService, TransactionService>();
 
             services.AddSwaggerGen(c => {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "YnabAPI", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "YNAB API", Version = "v1" });
                 c.EnableAnnotations();
             });
         }
@@ -40,6 +40,9 @@ namespace YnabAPI
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "YNAB API V1"));
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -50,8 +53,6 @@ namespace YnabAPI
             {
                 endpoints.MapControllers();
             });
-
-            
         }
     }
 }
