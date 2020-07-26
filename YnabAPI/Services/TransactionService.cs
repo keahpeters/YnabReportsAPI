@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -34,7 +32,7 @@ namespace YnabAPI.Services
             return transactions;
         }
 
-        private IEnumerable<Transaction> GetSingleTransactions(IEnumerable<YnabTransaction> ynabTransactions) 
+        private IEnumerable<Transaction> GetSingleTransactions(IEnumerable<YnabTransaction> ynabTransactions)
             => ynabTransactions.Where(x => x.Approved && !x.SubTransactions.Any()).Select(x => new Transaction(x.Date, x.Amount / 1000, x.CategoryName));
 
         private IEnumerable<Transaction> GetSplitTransactions(IEnumerable<YnabTransaction> ynabTransactions)
