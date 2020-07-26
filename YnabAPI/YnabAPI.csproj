@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="TransactionEndpoints\Get.GetTransactionsQueryString.cs" />
+    <Compile Remove="Transactions\Get.GetTransactionsQueryString.cs" />
   </ItemGroup>
 
   <ItemGroup>

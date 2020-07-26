@@ -6,12 +6,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
 using YnabAPI.Services;
-using YnabAPI.TransactionEndpoints.Models;
-using YnabAPI.TransactionEndpoints.Validators;
+using YnabAPI.Transactions.Models;
+using YnabAPI.Transactions.Validators;
 
 namespace YnabAPI
 {
@@ -32,7 +31,8 @@ namespace YnabAPI
             services.AddTransient<ITransactionService, TransactionService>();
             services.AddTransient<IValidator<GetTransactionsQueryString>, GetTransactionsQueryStringValidator>();
 
-            services.AddSwaggerGen(c => {
+            services.AddSwaggerGen(c =>
+            {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "YNAB API", Version = "v1" });
                 c.EnableAnnotations();
             });
@@ -41,10 +41,7 @@ namespace YnabAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            app.UseExceptionHandler("/error");
 
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "YNAB API V1"));
