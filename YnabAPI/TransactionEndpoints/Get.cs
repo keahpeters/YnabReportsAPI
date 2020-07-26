@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Transactions;
 
@@ -10,14 +9,15 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
 using YnabAPI.Services;
+using YnabAPI.TransactionEndpoints.Models;
 
-namespace YnabAPI.Endpoints
+namespace YnabAPI.TransactionEndpoints
 {
-    public class GetTransactionsEndpoint : BaseAsyncEndpoint
+    public class Get : BaseAsyncEndpoint
     {
         private readonly ITransactionService transactionService;
 
-        public GetTransactionsEndpoint(ITransactionService transactionService)
+        public Get(ITransactionService transactionService)
         {
             this.transactionService = transactionService;
         }
@@ -29,11 +29,11 @@ namespace YnabAPI.Endpoints
             OperationId = "Transactions.Get",
             Tags = new[] { "TransactionEndpoint" })
         ]
-        public async Task<ActionResult<IEnumerable<Transaction>>> HandleAsync(string budgetId, string? startDate = default)
+        public async Task<ActionResult<IEnumerable<Transaction>>> HandleAsync(string budgetId, [FromQuery] GetTransactionsQueryString queryStringParameters)
         {
             try
             {
-                var transactions = await this.transactionService.GetTransactions(budgetId, startDate);
+                var transactions = await this.transactionService.GetTransactions(budgetId, queryStringParameters?.StartDate);
                 return this.Ok(transactions);
             }
             catch

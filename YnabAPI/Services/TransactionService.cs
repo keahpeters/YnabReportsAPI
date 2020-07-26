@@ -25,11 +25,6 @@ namespace YnabAPI.Services
 
         public async Task<IEnumerable<Transaction>> GetTransactions(string budgetId, string? startDate)
         {
-            if (startDate is { } && !DateTime.TryParseExact(startDate, "yyyy-MM-dd", CultureInfo.CurrentCulture, DateTimeStyles.None, out _))
-            {
-                throw new ArgumentException("Invalid startDate format", nameof(startDate));
-            }
-
             YnabResponse? result = await this.ynabService.GetTransactions(budgetId, startDate);
             var ynabTransactions = result.Data.Transactions;
 

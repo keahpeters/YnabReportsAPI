@@ -6,7 +6,7 @@ namespace YnabAPI.ExternalModels
 {
     public class YnabTransaction
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; } = default!;
 
         public DateTime Date { get; set; }
 

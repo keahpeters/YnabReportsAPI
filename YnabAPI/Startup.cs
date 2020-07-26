@@ -1,4 +1,7 @@
 
+using FluentValidation;
+using FluentValidation.AspNetCore;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -7,6 +10,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
 using YnabAPI.Services;
+using YnabAPI.TransactionEndpoints.Models;
+using YnabAPI.TransactionEndpoints.Validators;
 
 namespace YnabAPI
 {
@@ -22,9 +27,10 @@ namespace YnabAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation();
             services.AddHttpClient<IYnabService, YnabService>();
             services.AddTransient<ITransactionService, TransactionService>();
+            services.AddTransient<IValidator<GetTransactionsQueryString>, GetTransactionsQueryStringValidator>();
 
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "YNAB API", Version = "v1" });
