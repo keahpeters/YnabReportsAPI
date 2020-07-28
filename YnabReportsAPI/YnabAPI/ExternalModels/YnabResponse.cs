@@ -1,10 +1,10 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace YnabAPI.ExternalModels
+namespace YnabReportsAPI.YnabAPI.ExternalModels
 {
     public class YnabResponse
     {
         [JsonPropertyName("data")]
-        public YnabData Data { get; set; } = default!;
+        public YnabData? Data { get; set; }
     }
 }

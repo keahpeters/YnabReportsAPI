@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
@@ -7,9 +6,9 @@ using System.Threading.Tasks;
 
 using Microsoft.Extensions.Configuration;
 
-using YnabAPI.ExternalModels;
+using YnabReportsAPI.YnabAPI.ExternalModels;
 
-namespace YnabAPI.Services
+namespace YnabReportsAPI.YnabAPI.Services
 {
     public interface IYnabService
     {

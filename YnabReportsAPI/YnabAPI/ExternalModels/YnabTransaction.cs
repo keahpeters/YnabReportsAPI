@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace YnabAPI.ExternalModels
+namespace YnabReportsAPI.YnabAPI.ExternalModels
 {
     public class YnabTransaction
     {

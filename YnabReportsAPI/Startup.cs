@@ -8,11 +8,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
-using YnabAPI.Services;
-using YnabAPI.Transactions.Models;
-using YnabAPI.Transactions.Validators;
+using YnabReportsAPI.Transactions.Services;
+using YnabReportsAPI.Transactions.Validators;
+using YnabReportsAPI.Transactions.ViewModels;
+using YnabReportsAPI.YnabAPI.Services;
 
-namespace YnabAPI
+namespace YnabReportsAPI
 {
     public class Startup
     {
@@ -29,7 +30,7 @@ namespace YnabAPI
             services.AddControllers().AddFluentValidation();
             services.AddHttpClient<IYnabService, YnabService>();
             services.AddTransient<ITransactionService, TransactionService>();
-            services.AddTransient<IValidator<GetTransactionsQueryString>, GetTransactionsQueryStringValidator>();
+            services.AddTransient<IValidator<GetTransactionsViewModel>, GetTransactionsViewModelValidator>();
 
             services.AddSwaggerGen(c =>
             {

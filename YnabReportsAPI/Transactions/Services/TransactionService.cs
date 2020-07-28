@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using YnabAPI.ExternalModels;
-using YnabAPI.Models;
+using YnabReportsAPI.Transactions.Models;
+using YnabReportsAPI.YnabAPI.Exceptions;
+using YnabReportsAPI.YnabAPI.ExternalModels;
+using YnabReportsAPI.YnabAPI.Services;
 
-namespace YnabAPI.Services
+namespace YnabReportsAPI.Transactions.Services
 {
     public interface ITransactionService
     {
@@ -24,8 +25,14 @@ namespace YnabAPI.Services
 
         public async Task<IEnumerable<Transaction>> GetTransactions(string budgetId, string? startDate)
         {
-            YnabResponse? result = await this.ynabService.GetTransactions(budgetId, startDate);
-            var ynabTransactions = result.Data.Transactions;
+            YnabResponse result = await this.ynabService.GetTransactions(budgetId, startDate);
+
+            if (result?.Data?.Transactions is null)
+            {
+                throw new YnabResponseException("The response from the YNAB API does not contain transactions");
+            }
+
+            IEnumerable<YnabTransaction> ynabTransactions = result.Data.Transactions;
 
             IEnumerable<Transaction> transactions = this.GetSingleTransactions(ynabTransactions)
                 .Concat(this.GetSplitTransactions(ynabTransactions));

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace YnabAPI.Models
+namespace YnabReportsAPI.Transactions.Models
 {
     public class Transaction
     {

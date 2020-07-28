@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30128.74
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YnabAPI", "YnabAPI\YnabAPI.csproj", "{8360E5F2-22BB-4110-8055-D37CD6456144}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YnabReportsAPI", "YnabReportsAPI\YnabReportsAPI.csproj", "{8360E5F2-22BB-4110-8055-D37CD6456144}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YnabReportsAPI.UnitTests", "YnabReportsAPI.UnitTests\YnabReportsAPI.UnitTests.csproj", "{87538A20-4899-4DED-A600-0F32AFAC5F8D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{8360E5F2-22BB-4110-8055-D37CD6456144}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8360E5F2-22BB-4110-8055-D37CD6456144}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8360E5F2-22BB-4110-8055-D37CD6456144}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87538A20-4899-4DED-A600-0F32AFAC5F8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87538A20-4899-4DED-A600-0F32AFAC5F8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87538A20-4899-4DED-A600-0F32AFAC5F8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87538A20-4899-4DED-A600-0F32AFAC5F8D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
