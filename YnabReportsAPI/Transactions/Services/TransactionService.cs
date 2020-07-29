@@ -29,7 +29,7 @@ namespace YnabReportsAPI.Transactions.Services
 
             if (result?.Data?.Transactions is null)
             {
-                throw new YnabResponseException("The response from the YNAB API does not contain transactions");
+                throw new YnabResponseException("The response from the YNAB API does not contain any transactions");
             }
 
             IEnumerable<YnabTransaction> ynabTransactions = result.Data.Transactions;
@@ -41,7 +41,7 @@ namespace YnabReportsAPI.Transactions.Services
         }
 
         private IEnumerable<Transaction> GetSingleTransactions(IEnumerable<YnabTransaction> ynabTransactions)
-            => ynabTransactions.Where(x => x.Approved && !x.SubTransactions.Any()).Select(x => new Transaction(x.Date, (decimal)x.Amount / 1000, x.CategoryName));
+            => ynabTransactions.Where(x => x.Approved && !x.SubTransactions.Any()).Select(x => new Transaction(x.Date, this.ConvertMilliUnitsToDecimal(x.Amount), x.CategoryName));
 
         private IEnumerable<Transaction> GetSplitTransactions(IEnumerable<YnabTransaction> ynabTransactions)
         {
@@ -51,10 +51,12 @@ namespace YnabReportsAPI.Transactions.Services
 
             foreach (var splitTransaction in splitTransactions)
             {
-                transactions.AddRange(splitTransaction.SubTransactions.Select(x => new Transaction(x.Date, x.Amount, x.CategoryName)));
+                transactions.AddRange(splitTransaction.SubTransactions.Select(x => new Transaction(x.Date, this.ConvertMilliUnitsToDecimal(x.Amount), x.CategoryName)));
             }
 
             return transactions;
         }
+
+        private decimal ConvertMilliUnitsToDecimal(int amount) => (decimal)amount / 1000;
     }
 }
