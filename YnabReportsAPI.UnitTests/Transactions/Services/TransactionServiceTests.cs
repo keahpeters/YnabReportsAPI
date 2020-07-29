@@ -42,8 +42,8 @@ namespace YnabReportsAPI.UnitTests.Transactions.Services
         {
             List<YnabTransaction> ynabTransaction = new List<YnabTransaction>
             {
-                new YnabTransaction { Date = new DateTime(2020, 1, 1), Amount = 10500, CategoryName = "Category1", Approved = true, SubTransactions = new List<YnabTransaction>() },
-                new YnabTransaction { Date = new DateTime(2020, 1, 2), Amount = 50000, CategoryName = "Category2", Approved = true, SubTransactions = new List<YnabTransaction>() },
+                new YnabTransaction { Date = new DateTime(2020, 1, 1), Amount = 10500, CategoryName = "Category1", Approved = true, SubTransactions = new List<YnabSubTransaction>() },
+                new YnabTransaction { Date = new DateTime(2020, 1, 2), Amount = 50000, CategoryName = "Category2", Approved = true, SubTransactions = new List<YnabSubTransaction>() },
             };
 
             this.ynabService.Setup(y => y.GetTransactions(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new YnabResponse { Data = new YnabData { Transactions = ynabTransaction } });
@@ -64,8 +64,8 @@ namespace YnabReportsAPI.UnitTests.Transactions.Services
         {
             List<YnabTransaction> ynabTransaction = new List<YnabTransaction>
             {
-                new YnabTransaction { Date = new DateTime(2020, 1, 1), Amount = 10500, CategoryName = "Category1", Approved = true, SubTransactions = new List<YnabTransaction>() },
-                new YnabTransaction { Date = new DateTime(2020, 1, 2), Amount = 50000, CategoryName = "Category2", Approved = false, SubTransactions = new List<YnabTransaction>() },
+                new YnabTransaction { Date = new DateTime(2020, 1, 1), Amount = 10500, CategoryName = "Category1", Approved = true, SubTransactions = new List<YnabSubTransaction>() },
+                new YnabTransaction { Date = new DateTime(2020, 1, 2), Amount = 50000, CategoryName = "Category2", Approved = false, SubTransactions = new List<YnabSubTransaction>() },
             };
 
             this.ynabService.Setup(y => y.GetTransactions(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new YnabResponse { Data = new YnabData { Transactions = ynabTransaction } });

@@ -16,6 +16,8 @@ namespace YnabReportsAPI.YnabAPI.ExternalModels
 
         public bool Approved { get; set; }
 
+        public bool Deleted { get; set; }
+
         [JsonPropertyName("account_name")]
         public string AccountName { get; set; } = default!;
 
@@ -25,6 +27,6 @@ namespace YnabReportsAPI.YnabAPI.ExternalModels
         [JsonPropertyName("category_name")]
         public string CategoryName { get; set; } = default!;
 
-        public IEnumerable<YnabTransaction> SubTransactions { get; set; } = default!;
+        public IEnumerable<YnabSubTransaction> SubTransactions { get; set; } = default!;
     }
 }

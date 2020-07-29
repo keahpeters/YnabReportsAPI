@@ -47,11 +47,11 @@ namespace YnabReportsAPI.Transactions.Services
         {
             var transactions = new List<Transaction>();
 
-            var splitTransactions = ynabTransactions.Where(x => x.Approved && x.SubTransactions.Any());
+            IEnumerable<YnabTransaction>? splitTransactions = ynabTransactions.Where(x => x.Approved && x.SubTransactions.Any());
 
             foreach (var splitTransaction in splitTransactions)
             {
-                transactions.AddRange(splitTransaction.SubTransactions.Select(x => new Transaction(x.Date, this.ConvertMilliUnitsToDecimal(x.Amount), x.CategoryName)));
+                transactions.AddRange(splitTransaction.SubTransactions.Select(x => new Transaction(splitTransaction.Date, this.ConvertMilliUnitsToDecimal(x.Amount), x.CategoryName)));
             }
 
             return transactions;
