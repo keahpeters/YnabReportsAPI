@@ -106,10 +106,10 @@ namespace YnabReportsAPI.UnitTests.Transactions.Services
         {
             List<YnabTransaction> ynabTransaction = new List<YnabTransaction>
             {
-                new YnabTransaction { 
-                    Date = new DateTime(2020, 1, 1), 
-                    Amount = 10500, 
-                    Approved = true, 
+                new YnabTransaction {
+                    Date = new DateTime(2020, 1, 1),
+                    Amount = 10500,
+                    Approved = true,
                     SubTransactions = new List<YnabSubTransaction>
                     {
                         new YnabSubTransaction { Amount = 10500, CategoryName = "Category1" },
