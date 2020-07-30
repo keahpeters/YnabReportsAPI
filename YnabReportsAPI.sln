@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30128.74
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YnabReportsAPI", "YnabReportsAPI\YnabReportsAPI.csproj", "{8360E5F2-22BB-4110-8055-D37CD6456144}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YnabReportsAPI.UnitTests", "YnabReportsAPI.UnitTests\YnabReportsAPI.UnitTests.csproj", "{87538A20-4899-4DED-A600-0F32AFAC5F8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YnabReportsAPI.UnitTests", "YnabReportsAPI.UnitTests\YnabReportsAPI.UnitTests.csproj", "{87538A20-4899-4DED-A600-0F32AFAC5F8D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
