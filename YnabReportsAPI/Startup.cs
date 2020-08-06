@@ -1,4 +1,8 @@
 
+using System.Reflection;
+
+using AutoMapper;
+
 using FluentValidation;
 using FluentValidation.AspNetCore;
 
@@ -31,6 +35,8 @@ namespace YnabReportsAPI
             services.AddHttpClient<IYnabService, YnabService>();
             services.AddTransient<ITransactionService, TransactionService>();
             services.AddTransient<IValidator<GetTransactionsViewModel>, GetTransactionsViewModelValidator>();
+
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             services.AddSwaggerGen(c =>
             {

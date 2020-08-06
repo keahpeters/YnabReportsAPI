@@ -25,7 +25,7 @@ namespace YnabReportsAPI.YnabAPI.ExternalModels
         public string? PayeeName { get; set; }
 
         [JsonPropertyName("category_name")]
-        public string CategoryName { get; set; } = default!;
+        public string? CategoryName { get; set; }
 
         public IEnumerable<YnabSubTransaction> SubTransactions { get; set; } = default!;
     }

@@ -4,7 +4,7 @@ namespace YnabReportsAPI.Transactions.Models
 {
     public class Transaction
     {
-        public Transaction(DateTime transactionDate, decimal amount, string category)
+        public Transaction(DateTime transactionDate, decimal amount, string? category)
         {
             this.TransactionDate = transactionDate;
             this.Amount = amount;
@@ -15,6 +15,6 @@ namespace YnabReportsAPI.Transactions.Models
 
         public decimal Amount { get; }
 
-        public string Category { get; }
+        public string? Category { get; }
     }
 }
